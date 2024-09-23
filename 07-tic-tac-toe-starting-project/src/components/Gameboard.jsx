@@ -1,4 +1,11 @@
-const initialGameBoard = Array(3).fill(Array(3).fill(null));
+// more dynamic if I wanted a different size board
+const initialGameBoard = Array(3).fill(null).map(() => Array(3).fill(null))
+
+// const initialGameBoard = [
+//   [null, null, null],
+//   [null, null, null],
+//   [null, null, null]
+// ]
 
 export default function Gameboard({ turns, onSelectSquare, ...props }) {
   // state management for the board
@@ -22,12 +29,15 @@ export default function Gameboard({ turns, onSelectSquare, ...props }) {
     setStateFunction( (oldstate) => setting new state and can manipulate the old state if needed )
   */
 
-  let gameboard = initialGameBoard;
-  for (const turn of turns) {
+  
+  /*
+    Here we are deriving state from our props
+  */
+  let gameboard = initialGameBoard;     // set to the default which is all nulls
+  for (const turn of turns) {           // set all of the moves on the board that have been set
     const { square, player } = turn;
     gameboard[square.row][square.col] = player;
   }
-  console.log(gameboard);
 
   return (
     <>
@@ -37,9 +47,7 @@ export default function Gameboard({ turns, onSelectSquare, ...props }) {
             <ol>
               {row.map((playerSymbol, colIdx) => (
                 <li key={colIdx}>
-                  <button onClick={() => onSelectSquare(rowIdx, colIdx)}>
-                    {playerSymbol}
-                  </button>
+                  <button onClick={() => onSelectSquare(rowIdx, colIdx)}>{playerSymbol}</button>
                 </li>
               ))}
             </ol>
