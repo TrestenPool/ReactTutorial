@@ -2,29 +2,32 @@ import Gameboard from "./components/Gameboard";
 import Log from "./components/Log";
 import Player from "./components/Player";
 import { useState } from "react";
+import { WINNING_COMBINATIONS } from "./winning-combinations.js";
+
+// helper function
+function deriveActivePlayer(gameTurns) {
+  let currentPlayer = "X";
+  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
+  }
+  return currentPlayer;
+}
 
 function App() {
-  const [gameTurns, setGameTurns] = useState([])
-  const [activePlayer, setActivePlayer] = useState("X");
+  const [gameTurns, setGameTurns] = useState([]);
 
+  // derive the current player from game turns
+  const currentPlayer = deriveActivePlayer(gameTurns);
+
+  // handle the select square
   function handleSelectSquare(rowIdx, colIdx) {
-    // change the active player
-    setActivePlayer((oldPlayer) => (oldPlayer === "X" ? "O" : "X"));
-
-    // add to the game turns
     setGameTurns((prevTurns) => {
-      // get the current players
-      let currentPlayer = "X";
-      if (prevTurns.length > 0 && prevTurns[0].player === "X") {
-        currentPlayer = "O";
-      }
-      // make a new array with the newly added turn
+      const currentPlayer = deriveActivePlayer(prevTurns);
       const updatedTurns = [
-        { square: { row: rowIdx, col: colIdx }, player: activePlayer },
+        { square: { row: rowIdx, col: colIdx }, player: currentPlayer },
         ...prevTurns,
       ];
 
-      // return the newly created array
       return updatedTurns;
     });
   }
@@ -32,24 +35,22 @@ function App() {
   return (
     <main>
       <div id="game-container">
+        {/* Players */}
         <ol id="players" className="highlight-player">
           <Player
             initialName="Player 1"
             symbol="X"
-            isActive={activePlayer === "X"}
+            isActive={currentPlayer === "X"}
           />
           <Player
             initialName="Player 2"
             symbol="O"
-            isActive={activePlayer === "O"}
+            isActive={currentPlayer === "O"}
           />
         </ol>
 
         {/* Gameboard */}
-        <Gameboard
-          turns={gameTurns}
-          onSelectSquare={handleSelectSquare}
-        />
+        <Gameboard turns={gameTurns} onSelectSquare={handleSelectSquare} />
       </div>
       {/* Log */}
       <Log turns={gameTurns} />
