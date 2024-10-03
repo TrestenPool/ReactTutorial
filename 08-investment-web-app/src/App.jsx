@@ -1,9 +1,25 @@
+import ResultsTable from "./ResultsTable"
+import UserInput from "./UserInput"
+import { useState } from "react"
+
 function App() {
+  const [investmentInput, setInvestmentInput] = useState({
+    year
+  });
+
+  /*******************************************/
+  /*************** JSX CODE ******************/
+  /*******************************************/
   return (
     <>
-      <h1>React Investment Calculator</h1>
+      {/* header */}
+      <h1 id="header">React Investment Calculator</h1>
 
-      <div id="header">Something</div>
+      {/* User input */}
+      <UserInput />
+
+      {/* Table of results */}
+      <ResultsTable />
     </>
   )
 }
