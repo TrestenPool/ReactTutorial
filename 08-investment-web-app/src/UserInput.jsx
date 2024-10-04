@@ -1,4 +1,8 @@
-export default function UserInput({ onChangeFunction, ...props }) {
+export default function UserInput({
+  onChangeFunction,
+  investmentObject,
+  ...props
+}) {
   return (
     <div id="user-input">
       <div className="input-group">
@@ -9,23 +13,41 @@ export default function UserInput({ onChangeFunction, ...props }) {
             type="number"
             id="initialInvestment"
             name="userForm"
-            placeholder="1000"
+            value={investmentObject.initialInvestment}
           />
         </label>
 
         <label>
           Annual Investment
-          <input type="number" id="annualInvestment" name="userForm" />
+          <input
+            onChange={(event) => onChangeFunction(event, "annualInvestment")}
+            type="number"
+            id="annualInvestment"
+            name="userForm"
+            value={investmentObject.annualInvestment}
+          />
         </label>
 
         <label>
           Expected Return
-          <input type="number" id="expectedReturn" name="userForm" />
+          <input
+            onChange={(event) => onChangeFunction(event, "expectedReturn")}
+            type="number"
+            id="expectedReturn"
+            name="userForm"
+            value={investmentObject.expectedReturn}
+          />
         </label>
 
         <label>
           Duration
-          <input type="number" id="duration" name="userForm" />
+          <input
+            onChange={(event) => onChangeFunction(event, "duration")}
+            type="number"
+            id="duration"
+            name="userForm"
+            value={investmentObject.duration}
+          />
         </label>
       </div>
     </div>
