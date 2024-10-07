@@ -1,10 +1,16 @@
 import { useState } from 'react';
 
 export default function AuthInputs() {
+  /*****************/
+  /**** STATE ******/
+  /*****************/
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
+  /*****************/
+  /*** FUNCTIONS ***/
+  /*****************/
   function handleInputChange(identifier, value) {
     if (identifier === 'email') {
       setEnteredEmail(value);
@@ -12,14 +18,19 @@ export default function AuthInputs() {
       setEnteredPassword(value);
     }
   }
-
   function handleLogin() {
     setSubmitted(true);
   }
 
+  /***********************/
+  /*** COMPUTE VALUES ***/
+  /***********************/
   const emailNotValid = submitted && !enteredEmail.includes('@');
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
+  /***********************/
+  /****** JSX VALUES *****/
+  /***********************/
   return (
     <div id="auth-inputs">
       <div className="controls">
