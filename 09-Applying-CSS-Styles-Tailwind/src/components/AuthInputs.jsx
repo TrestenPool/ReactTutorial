@@ -38,17 +38,24 @@ export default function AuthInputs() {
   /****** JSX VALUES *****/
   /***********************/
   return (
-    <div id="auth-inputs">
+    <div
+      id="auth-inputs"
+      className="max-w-xl max-w-sm mx-auto p-8 rounded shadow-md bg-gradient-to-b from-stone-400 to-stone-800"
+    >
       {/* Contains the inputs */}
-      <div>
+      <div className="flex flex-col gap-2 mb-6"> 
         <p>
-          <input
+          <Input
+            invalid={emailNotValid}
+            label="Email"
             type="Email"
             onChange={(event) => handleInputChange("email", event.target.value)}
           />
         </p>
         <p>
-          <input
+          <Input
+            invalid={passwordNotValid}
+            label="Password"
             type="password"
             onChange={(event) =>
               handleInputChange("password", event.target.value)
@@ -58,9 +65,9 @@ export default function AuthInputs() {
       </div>
 
       {/* The buttons section on the bottom */}
-      <div className="actions">
-        <button onClick={handleLogin}>Create an account</button>
-        <button onClick={handleLogin}>Sign In</button>
+      <div className="actions flex gap-4 justify-end">
+        <Button onClick={handleLogin}>Create an account</Button>
+        <Button onClick={handleLogin}>Sign In</Button>
       </div>
     </div>
   );
